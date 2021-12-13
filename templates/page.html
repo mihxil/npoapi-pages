@@ -6,7 +6,7 @@
   <body>
 
     <h1>{{ page.title or "Niet gevonden"}}</h1>
-
+    <p class="date">{{ page.sortDate | formattime }}</p>
      {% for image in page.images %}
           <img src="{{ image.url }}" alt="{{ image.title }}" />
      {% endfor %}
@@ -34,12 +34,14 @@
             <li><a href="/page/{{ link.referrer }}">{{ link.title }}</a></li>
         {%  endfor %}
     </ul>
-    <p><a href="{{ page.url }}">Original</a></p>
+    <p><a href="{{ page.url }}">Orginele pagina</a></p>
     <p class="keywords">
          {% for keyword in page.keywords %}
+             {% if loop.first %} keywords: {% endif %}
             {{  keyword }}
              {% if not loop.last %},{% endif %}
         {%  endfor %}
     </p>
+    <a href="/">Terug</a>
   </body>
 </html>

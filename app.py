@@ -1,6 +1,7 @@
 import os
 
 import json
+from datetime import time, datetime
 
 from flask import Flask, render_template, send_from_directory, request
 from npoapi import Pages
@@ -24,7 +25,7 @@ def index():
         prof = profArg  or profile
     form = PagesForm()
     form.sort_fields = [PageSortType()]
-    form.sort_fields[0].value = PageSortTypeEnum.LAST_MODIFIED
+    form.sort_fields[0].value = PageSortTypeEnum.SORT_DATE
     form.sort_fields[0].order = OrderTypeEnum.DESC
     form.searches = PagesSearchType()
     form.searches.types = TextMatcherListType()
@@ -58,3 +59,6 @@ def send_js(path):
     return send_from_directory('css', path)
 
 
+@app.template_filter('formattime')
+def formattime(s):
+    return  datetime.utcfromtimestamp(s / 1000).strftime('%Y-%m-%d')

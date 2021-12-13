@@ -1,18 +1,48 @@
 
 
 html {
-    background-color: #eee;
+    background-color: #232;
     font-family: sans-serif;
+    margin-top: 0;
+    padding: 2ex;
+    padding-top: 0;
+}
+body {
+    margin: 0;
+    padding: 2ex;
+    padding-top: 0;
+    background-color: #eee;
 }
 
 img {
-    float: right
+    float: right;
+    padding: 1ex;
+    padding-right: 0;
+
 }
 h1 {
     color: white;
     text-align: center;
-    background: #222;
+    background: #232;
+    padding: 2ex;
+    margin: 2ex;
+    margin-left: -2ex;
+    margin-right: -2ex;
 }
 h2, h3, h4 {
     color: #252;
+}
+a:visited, a:link {
+    text-decoration: none;
+}
+a:link {
+    color: #00a;
+}
+
+a:visited {
+    color: #08a;
+}
+
+.date {
+    font-style: italic;
 }
