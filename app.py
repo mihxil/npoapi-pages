@@ -31,10 +31,13 @@ def index():
     matcher = TextMatcherType()
     matcher.value = "HOME"
     form.searches.types.matcher = [matcher]
-    result = client.search(profile = prof, form=form, limit=240)
-    j = json.JSONDecoder().decode(result)
-    pages = list(map(lambda i: i['result'], j["items"]))
-    return render_template('index.html',  pages=pages, result=j, profile=prof)
+    pages = []
+
+    for item in client.iterate(profile = prof, form=form, limit=2000):
+        pages.append(item)
+    result = {'total': len(pages)}
+
+    return render_template('index.html',  pages=pages, result=result, profile=prof)
 
 
 @app.route('/page/<path:url>')
