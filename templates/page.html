@@ -1,10 +1,12 @@
 <html lang="nl">
 <head>
     {% include 'headers.html' %}
-    <title>Title</title>
+    <title>{{  page.title }}</title>
   </head>
   <body>
-    <h1>{{ page.title }}</h1>
+
+    <h1>{{ page.title or "Niet gevonden"}}</h1>
+
      {% for image in page.images %}
           <img src="{{ image.url }}" alt="{{ image.title }}" />
      {% endfor %}
