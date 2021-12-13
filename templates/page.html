@@ -1,0 +1,43 @@
+<html lang="nl">
+<head>
+    {% include 'headers.html' %}
+    <title>Title</title>
+  </head>
+  <body>
+    <h1>{{ page.title }}</h1>
+     {% for image in page.images %}
+          <img src="{{ image.url }}" alt="{{ image.title }}" />
+     {% endfor %}
+     <h2>{{  page.subTitle }}</h2>
+      <p class="summary"> {{  page.summary }}</p>
+      {% for paragraph in page.paragraphs %}
+          <h3>{{ paragraph.title }}</h3>
+          <p>{{ paragraph.body }}</p>
+     {% endfor %}
+    <h2>Embed</h2>
+    <ul>
+        {% for embed in page.embeds %}
+            <li>Hier kun je een player zetten voor {{  embed.media.mid }}: {{ embed.media.titles[0].value }}</li>
+        {%  endfor %}
+    </ul>
+    <h2>Links</h2>
+    <ul>
+        {% for link in page.links %}
+            <li><a href="/page/{{ link.pageRef }}">{{ link.text }}</a></li>
+        {%  endfor %}
+    </ul>
+    <h2>Referenties</h2>
+    <ul>
+        {% for link in page.referrals %}
+            <li><a href="/page/{{ link.referrer }}">{{ link.title }}</a></li>
+        {%  endfor %}
+    </ul>
+    <p><a href="{{ page.url }}">Original</a></p>
+    <p class="keywords">
+         {% for keyword in page.keywords %}
+            {{  keyword }}
+             {% if not loop.last %},{% endif %}
+        {%  endfor %}
+    </p>
+  </body>
+</html>
