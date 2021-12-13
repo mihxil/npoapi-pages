@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, url_for
 from npoapi import Pages
 from npoapi.data.api import PagesForm, PagesSearchType, TextMatcherListType, TextMatcherType, PageSortType, \
     PageSortTypeEnum, OrderTypeEnum
@@ -36,7 +36,7 @@ def page(url:str):
     else:
         page = None
 
-    return render_template('page.html',  page=page)
+    return render('page.html',  page=page)
 
 
 @app.route('/keyword/<path:keyword>')
@@ -73,7 +73,6 @@ def create_form():
     form.searches = PagesSearchType()
     return form
 
-
 def render_form_result(form, template="index.html", **kwargs):
     prof = get_profile()
     pages = []
@@ -82,12 +81,16 @@ def render_form_result(form, template="index.html", **kwargs):
         pages.append(item)
     result = {'total': len(pages)}
 
-    return render_template(template, pages=pages, result=result, profile=prof, **kwargs)
+    return render(template, pages=pages, result=result, profile=prof, **kwargs)
+
+def render(template, **kwargs):
+    logo = url_for('static', filename="VPRO.svg")
+    return render_template(template, logo=logo, **kwargs)
 
 
 @app.route('/css/<path:path>')
-def send_js(path):
-    return send_from_directory('css', path)
+def send_css(path):
+    return render('css/'+ path), 200, {'Content-Type': 'text/css'}
 
 
 @app.template_filter('formattime')
