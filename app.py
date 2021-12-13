@@ -62,3 +62,15 @@ def send_js(path):
 @app.template_filter('formattime')
 def formattime(s):
     return  datetime.utcfromtimestamp(s / 1000).strftime('%Y-%m-%d')
+
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age = 600
+    return response
+
+if __name__ == "__main__":
+    from waitress import serve
+    import logging
+    logger = logging.getLogger('waitress')
+    logger.setLevel(logging.DEBUG)
+    serve(app, host="0.0.0.0", port=8080)

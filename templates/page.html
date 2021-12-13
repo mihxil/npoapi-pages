@@ -3,10 +3,10 @@
     {% include 'headers.html' %}
     <title>{{  page.title }}</title>
   </head>
-  <body>
+  <body class="{{ page.type }}">
 
     <h1>{{ page.title or "Niet gevonden"}}</h1>
-    <p class="date">{{ page.sortDate | formattime }}</p>
+    <p class="date">{{ (page.sortDate or 0) | formattime }}</p>
      {% for image in page.images %}
           <img src="{{ image.url }}" alt="{{ image.title }}" />
      {% endfor %}
@@ -16,24 +16,30 @@
           <h3>{{ paragraph.title }}</h3>
           <p>{{ paragraph.body }}</p>
      {% endfor %}
+    {% if page.embeds %}
     <h2>Embed</h2>
     <ul>
         {% for embed in page.embeds %}
             <li>Hier kun je een player zetten voor {{  embed.media.mid }}: {{ embed.media.titles[0].value }}</li>
         {%  endfor %}
     </ul>
+    {%  endif %}
+    {% if page.links %}
     <h2>Links</h2>
     <ul>
         {% for link in page.links %}
             <li><a href="/page/{{ link.pageRef }}">{{ link.text }}</a></li>
         {%  endfor %}
     </ul>
+    {%  endif %}
+    {% if page.referrals %}
     <h2>Referenties</h2>
     <ul>
         {% for link in page.referrals %}
             <li><a href="/page/{{ link.referrer }}">{{ link.title }}</a></li>
         {%  endfor %}
     </ul>
+    {%  endif %}
     <p><a href="{{ page.url }}">Orginele pagina</a></p>
     <p class="keywords">
          {% for keyword in page.keywords %}
