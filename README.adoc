@@ -1,0 +1,34 @@
+= Rendering a site via the pages api
+
+The NPO pages api is actually meant to facility _searching_ in your site.
+
+The objects it contains are quite complete though. This is a simple demo on how it could be used to
+actually serve a site via it.
+
+It is implemented with python flask.
+
+== Running
+
+The link:Makefile[makefile] documents how to run it.
+
+The app can be configured with the following environment variables:
+
+- secret: The NPO api secret
+- apiKey: The NPO  apiKey. This defaults to ione7ahfij (vpro)
+- origin: The NPO origin. this default to https://www.vpro.nl
+- profile: The profile to base the site on.
+- configdir: Set this to the cwd to get mentioned defaults working
+
+Set up link:https://github.com/npo-poms/pyapi[pyapi], with flask (`pip install flask`) and run
+
+[source, bash]
+----
+configdir=$(pwd) profile=vpro flask run
+----
+
+I prepared a docker image with required dependencies too:
+
+[source, bash]
+----
+docker run --env secret=${secret} --env profile=vpro -p 5000:5000  mihxil/npoapi-pages
+----
