@@ -4,10 +4,10 @@
     <title>VPRO.nl</title>
   </head>
   <body>
-    <h1>Dit zijn alle HOME-pages in profiel</h1>
+    <h1>Dit zijn HOME-pages in {{  profile }} (totaal {{ result.total }})</h1>
     <ul>
       {% for page in pages %}
-          <li><a href="page/{{page.url}}">{{page.title}}</a> (<a href="{{page.url}}">original</a>)</li>
+          <li><a href="page/{{page.url}}">{{page.title}}</a> (<a href="{{page.url}}">original</a>), {% for bc in page.broadcasters %}{{ bc.value }}{% endfor %}</li>
       {% endfor %}
 
     </ul>

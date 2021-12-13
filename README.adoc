@@ -23,6 +23,7 @@ Set up link:https://github.com/npo-poms/pyapi[pyapi], with flask (`pip install f
 
 [source, bash]
 ----
+export secret=<see 1password or so>
 configdir=$(pwd) profile=vpro flask run
 ----
 
