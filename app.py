@@ -1,7 +1,6 @@
-import os
-
 import json
-from datetime import time, datetime
+import os
+from datetime import datetime
 
 from flask import Flask, render_template, send_from_directory, request
 from npoapi import Pages
@@ -18,27 +17,13 @@ profile=os.getenv("profile")
 
 @app.route('/')
 def index():
-    profArg = request.args.get('profile')
-    if "" == profArg:
-        prof = None
-    else:
-        prof = profArg  or profile
-    form = PagesForm()
-    form.sort_fields = [PageSortType()]
-    form.sort_fields[0].value = PageSortTypeEnum.SORT_DATE
-    form.sort_fields[0].order = OrderTypeEnum.DESC
-    form.searches = PagesSearchType()
+    form = create_form()
     form.searches.types = TextMatcherListType()
     matcher = TextMatcherType()
     matcher.value = "HOME"
     form.searches.types.matcher = [matcher]
-    pages = []
 
-    for item in client.iterate(profile = prof, form=form, limit=2000):
-        pages.append(item)
-    result = {'total': len(pages)}
-
-    return render_template('index.html',  pages=pages, result=result, profile=prof)
+    return render_form_result(form)
 
 
 @app.route('/page/<path:url>')
@@ -52,6 +37,52 @@ def page(url:str):
         page = None
 
     return render_template('page.html',  page=page)
+
+
+@app.route('/keyword/<path:keyword>')
+def keyword(keyword:str):
+    form = create_form()
+    form.searches.keywords = TextMatcherListType()
+    matcher = TextMatcherType()
+    matcher.value = keyword
+    form.searches.keywords.matcher = [matcher]
+    return render_form_result(form, template="keyword.html", keyword=keyword)
+
+@app.route('/portal/<path:portal>')
+def portal(portal:str):
+    form = create_form()
+    form.searches.portals = TextMatcherListType()
+    matcher = TextMatcherType()
+    matcher.value = portal
+    form.searches.portals.matcher = [matcher]
+    return render_form_result(form, template="portal.html", portal=portal)
+
+def get_profile():
+    profArg = request.args.get('profile')
+    if "" == profArg:
+        prof = None
+    else:
+        prof = profArg or profile
+    return prof
+
+def create_form():
+    form = PagesForm()
+    form.sort_fields = [PageSortType()]
+    form.sort_fields[0].value = PageSortTypeEnum.SORT_DATE
+    form.sort_fields[0].order = OrderTypeEnum.DESC
+    form.searches = PagesSearchType()
+    return form
+
+
+def render_form_result(form, template="index.html", **kwargs):
+    prof = get_profile()
+    pages = []
+
+    for item in client.iterate(profile=prof, form=form, limit=2000):
+        pages.append(item)
+    result = {'total': len(pages)}
+
+    return render_template(template, pages=pages, result=result, profile=prof, **kwargs)
 
 
 @app.route('/css/<path:path>')

@@ -1,0 +1,11 @@
+<html lang="nl">
+  <head>
+    {% include 'headers.html' %}
+    <title>{{ profile }} - {{ portal }}</title>
+  </head>
+  <body>
+  <h1>Dit zijn {{ result.total }} pagina's in {{  profile }} in portal '{{ portal }}'</h1>
+    {%  include 'pages.ul.html' %}
+    <a href="/">Terug</a>
+  </body>
+</html>

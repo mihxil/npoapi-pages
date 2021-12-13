@@ -1,12 +1,15 @@
 <html lang="nl">
 <head>
     {% include 'headers.html' %}
-    <title>{{  page.title }}</title>
+    <title>{{ profile }} - {{  page.title }}</title>
   </head>
   <body class="{{ page.type }}">
 
     <h1>{{ page.title or "Niet gevonden"}}</h1>
     <p class="date">{{ (page.sortDate or 0) | formattime }}</p>
+    {% if page.portal %}
+    <p class="portal"><a href="/portal/{{ page.portal.id }}">{{ page.portal.value }}</a></p>
+    {% endif %}
      {% for image in page.images %}
           <img src="{{ image.url }}" alt="{{ image.title }}" />
      {% endfor %}
@@ -42,10 +45,16 @@
     {%  endif %}
     <p><a href="{{ page.url }}">Orginele pagina</a></p>
     <p class="keywords">
-         {% for keyword in page.keywords %}
-             {% if loop.first %} keywords: {% endif %}
-            {{  keyword }}
-             {% if not loop.last %},{% endif %}
+        {% for keyword in page.keywords %}
+            {% if loop.first %} keywords: {% endif %}
+            <a href="/keyword/{{ keyword }}">{{  keyword }}</a>
+            {%- if not loop.last %}, {% endif -%}
+        {%  endfor %}
+    </p>
+     <p class="crids">
+        {% for crid in page.crids %}
+            <a href="https://publish.pages.omroep.nl/api/pages/updates?url={{ crid | urlencode }}&loadDeleted=false&match=BOTH">{{  crid }}</a>
+            {% if not loop.last %}<br />{% endif %}
         {%  endfor %}
     </p>
     <a href="/">Terug</a>

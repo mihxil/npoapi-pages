@@ -1,0 +1,8 @@
+ <ul>
+    {% for page in pages %}
+        <li>
+            <a href="/page/{{page.url}}">{{page.title}}</a>
+            {% for bc in page.broadcasters %}{{ bc.value }}{% endfor %}
+        </li>
+    {% endfor %}
+</ul>

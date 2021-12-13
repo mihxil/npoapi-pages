@@ -1,0 +1,11 @@
+<html lang="nl">
+  <head>
+    {% include 'headers.html' %}
+    <title>{{ profile }} - {{ keyword }}</title>
+  </head>
+  <body>
+    <h1>Dit zijn pagina's in {{  profile }} met keyword '{{ keyword }}'</h1>
+    {%  include 'pages.ul.html' %}
+    <a href="/">Terug</a>
+  </body>
+</html>
