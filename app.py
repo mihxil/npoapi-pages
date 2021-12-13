@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, send_from_directory, request, url_for
+from flask import Flask, render_template, request, url_for
 from npoapi import Pages
 from npoapi.data.api import PagesForm, PagesSearchType, TextMatcherListType, TextMatcherType, PageSortType, \
     PageSortTypeEnum, OrderTypeEnum
@@ -56,6 +56,15 @@ def portal(portal:str):
     matcher.value = portal
     form.searches.portals.matcher = [matcher]
     return render_form_result(form, template="portal.html", portal=portal)
+
+@app.route('/section/<path:section>')
+def section(section:str):
+    form = create_form()
+    form.searches.sections = TextMatcherListType()
+    matcher = TextMatcherType()
+    matcher.value = section
+    form.searches.sections.matcher = [matcher]
+    return render_form_result(form, template="portal.html", portal=section)
 
 def get_profile():
     profArg = request.args.get('profile')

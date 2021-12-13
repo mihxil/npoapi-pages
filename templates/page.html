@@ -9,6 +9,9 @@
     <p class="date">{{ (page.sortDate or 0) | formattime }}</p>
     {% if page.portal %}
     <p class="portal"><a href="/portal/{{ page.portal.id }}">{{ page.portal.value }}</a></p>
+        {%  if page.portal.section %}
+            <p class="section"><a href="/section/{{ page.portal.section.id }}">{{ page.portal.section.value }}</a></p>
+        {%  endif %}
     {% endif %}
      {% for image in page.images %}
           <img src="{{ image.url }}" alt="{{ image.title }}" />
@@ -53,10 +56,10 @@
     </p>
      <p class="crids">
         {% for crid in page.crids %}
-            <a href="https://publish.pages.omroep.nl/api/pages/updates?url={{ crid | urlencode }}&loadDeleted=false&match=BOTH">{{  crid }}</a>
+            <a href="https://publish.pages.omroep.nl/api/pages/updates?url={{ crid | urlencode }}&loadDeleted=true&match=CRID">{{  crid }}</a>
             {% if not loop.last %}<br />{% endif %}
         {%  endfor %}
     </p>
-    <a href="/">Terug</a>
+    <a href="/" target="api">Terug</a>
   </body>
 </html>
