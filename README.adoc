@@ -32,7 +32,7 @@ I prepared a docker image with required dependencies too:
 
 [source, bash]
 ----
-docker run --env secret=${secret} --env profile=vpro -p 5000:5000  mihxil/npoapi-pages
+docker run --env secret=${secret} --env profile=vpro -p 8080:8080  mihxil/npoapi-pages
 ----
 
 Via make:
