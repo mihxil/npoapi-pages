@@ -15,9 +15,9 @@ The link:Makefile[makefile] documents how to run it.
 The app can be configured with the following environment variables:
 
 - secret: The NPO api secret
-- apiKey: The NPO  apiKey. This defaults to ione7ahfij (vpro)
-- origin: The NPO origin. this default to https://www.vpro.nl
-- profile: The profile to base the site on.
+- apiKey: The NPO  apiKey. This defaults to key of vpro
+- origin: The NPO origin. This defaults to https://www.vpro.nl
+- profile: The profile to base the site on. Defaults to vpro
 - configdir: Set this to the cwd to get mentioned defaults working
 
 Set up link:https://github.com/npo-poms/pyapi[pyapi], with flask (`pip install flask`) and run
