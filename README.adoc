@@ -1,6 +1,6 @@
 = Rendering a site via the pages api
 
-The NPO pages api is actually meant to facility _searching_ in your site.
+The NPO pages api is actually meant to facilitate _searching_ in your site.
 
 The objects it contains are quite complete though. This is a simple demo on how it could be used to
 actually serve a site via it.
@@ -34,3 +34,10 @@ I prepared a docker image with required dependencies too:
 ----
 docker run --env secret=${secret} --env profile=vpro -p 5000:5000  mihxil/npoapi-pages
 ----
+
+Via make:
+[source, bash]
+----
+make docker-run PROFILE=vpro
+----
+(it should be pulled from hub.docker.io. Nothing else needed. Just keep port 8080 free.)
