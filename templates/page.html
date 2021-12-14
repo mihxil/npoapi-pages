@@ -56,9 +56,14 @@
     </p>
      <p class="crids">
         {% for crid in page.crids %}
-            <a href="https://publish.pages.omroep.nl/api/pages/updates?url={{ crid | urlencode }}&loadDeleted=true&match=CRID">{{  crid }}</a>
+            {{ crid }}:
+            <a target="api" href="https://publish.pages.omroep.nl/api/pages/updates?url={{ crid | urlencode }}&amp;loadDeleted=true&amp;match=CRID">update</a> |
+            <a target="api" href="https://rs.poms.omroep.nl/v1/api/pages/multiple?ids={{ crid | urlencode }}&amp;properties=all">published</a>
             {% if not loop.last %}<br />{% endif %}
         {%  endfor %}
+    </p>
+    <p>
+
     </p>
     <a href="/" target="api">Terug</a>
   </body>
